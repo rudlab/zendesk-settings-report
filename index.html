@@ -3,230 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zendesk Flæðiskema – HÍ – 2026-03-05</title>
+<title>Háskóli Íslands – Zendesk Flæðiskema</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap');
-:root{
-  --bg:#f8f9fc;--surface:#fff;--border:#e2e8f0;--border2:#cbd5e1;
-  --text:#1e293b;--text2:#64748b;--text3:#94a3b8;
-  --fjsv:#2563eb;--fjsv-bg:#eff6ff;--fjsv-border:#bfdbfe;
-  --uts:#0891b2;--uts-bg:#ecfeff;--uts-border:#a5f3fc;
-  --man:#7c3aed;--man-bg:#f5f3ff;--man-border:#ddd6fe;
-  --ken:#059669;--ken-bg:#ecfdf5;--ken-border:#a7f3d0;
-  --vns:#d97706;--vns-bg:#fffbeb;--vns-border:#fde68a;
-  --thsv:#dc2626;--thsv-bg:#fef2f2;--thsv-border:#fecaca;
-  --hvs:#db2777;--hvs-bg:#fdf2f8;--hvs-border:#fbcfe8;
-  --von:#65a30d;--von-bg:#f7fee7;--von-border:#d9f99d;
-  --fts:#ea580c;--fts-bg:#fff7ed;--fts-border:#fed7aa;
-  --hug:#0d9488;--hug-bg:#f0fdfa;--hug-border:#99f6e4;
-  --mss:#7e22ce;--mss-bg:#faf5ff;--mss-border:#e9d5ff;
-  --other:#64748b;--other-bg:#f8fafc;--other-border:#e2e8f0;
+:root {
+  --bg:#f4f3f0;--surface:#ffffff;--surface2:#f8f7f5;
+  --border:#e2e0db;--border2:#ccc9c0;
+  --text:#1a1917;--text2:#5c5a55;--text3:#9c9a95;
+  --email-border:#9c9a95;--form-border:#7c5cbf;
+  --form-bg:#f8f5ff;--email-bg:#f5f5f4;
+  --panel-bg:#1a1917;--panel-text:#f0ede8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;overflow-x:hidden}
-.header{padding:18px 28px 14px;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.header h1{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1e40af}
-.header p{font-size:.68rem;color:var(--text2);margin-top:3px}
-.stats{display:flex;gap:18px;margin-top:7px;flex-wrap:wrap}
-.stat{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text2)}
-.stat span{color:#1e40af;font-weight:600}
-.fetch-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:8px 14px;text-align:right;flex-shrink:0}
-.fetch-box .fb-label{font-size:.58rem;color:#15803d;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
-.fetch-box .fb-date{font-size:.75rem;font-weight:700;color:#14532d;font-family:'JetBrains Mono',monospace}
-.fetch-box .fb-time{font-size:.65rem;color:#166534;font-family:'JetBrains Mono',monospace}
-.legend{display:flex;flex-wrap:wrap;gap:8px;padding:9px 28px;border-bottom:1px solid var(--border);background:#f1f5f9}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:.6rem;color:var(--text2);font-weight:500}
-.legend-dot{width:9px;height:9px;border-radius:2px}
-.diagram-wrap{display:grid;grid-template-columns:280px 1fr 280px;min-height:calc(100vh - 115px);position:relative}
-.email-col,.group-col{padding:18px 10px 18px 14px;display:flex;flex-direction:column;gap:4px;position:relative;z-index:2}
-.email-col{border-right:1px solid var(--border)}
-.group-col{border-left:1px solid var(--border)}
-.col-title{font-family:'JetBrains Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:9px;padding-bottom:5px;border-bottom:1px solid var(--border)}
-.email-node{background:var(--surface);border:1px solid var(--border2);border-left:3px solid #94a3b8;border-radius:4px;padding:5px 9px;font-family:'JetBrains Mono',monospace;font-size:.58rem;color:#475569;cursor:pointer;transition:all .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.email-node:hover{border-color:#94a3b8;color:#1e293b;background:#f8fafc}
-.email-node.selected{border-left-color:#2563eb;background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8;font-weight:600}
-.email-node.dimmed{opacity:.2}
-.group-section-header{font-family:'JetBrains Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 4px 2px;margin-top:5px;color:var(--text3);border-top:1px dashed var(--border)}
-.group-section-header:first-of-type{margin-top:0;border-top:none}
-.group-node{border-radius:4px;padding:5px 9px;font-family:'JetBrains Mono',monospace;font-size:.58rem;cursor:pointer;transition:all .15s;border-width:1px;border-style:solid;border-left-width:3px}
-.group-node:hover{filter:brightness(.95)}.group-node.selected{filter:brightness(.88);font-weight:600}.group-node.dimmed{opacity:.18}
-.g-fjsv{background:var(--fjsv-bg);border-color:var(--fjsv-border);border-left-color:var(--fjsv);color:#1e40af}
-.g-uts{background:var(--uts-bg);border-color:var(--uts-border);border-left-color:var(--uts);color:#0e7490}
-.g-man{background:var(--man-bg);border-color:var(--man-border);border-left-color:var(--man);color:#5b21b6}
-.g-ken{background:var(--ken-bg);border-color:var(--ken-border);border-left-color:var(--ken);color:#047857}
-.g-vns{background:var(--vns-bg);border-color:var(--vns-border);border-left-color:var(--vns);color:#92400e}
-.g-thsv{background:var(--thsv-bg);border-color:var(--thsv-border);border-left-color:var(--thsv);color:#991b1b}
-.g-hvs{background:var(--hvs-bg);border-color:var(--hvs-border);border-left-color:var(--hvs);color:#9d174d}
-.g-von{background:var(--von-bg);border-color:var(--von-border);border-left-color:var(--von);color:#3f6212}
-.g-fts{background:var(--fts-bg);border-color:var(--fts-border);border-left-color:var(--fts);color:#9a3412}
-.g-hug{background:var(--hug-bg);border-color:var(--hug-border);border-left-color:var(--hug);color:#0f766e}
-.g-mss{background:var(--mss-bg);border-color:var(--mss-border);border-left-color:var(--mss);color:#6b21a8}
-.g-other{background:var(--other-bg);border-color:var(--other-border);border-left-color:var(--other);color:#475569}
-.svg-canvas{position:relative;overflow:visible}
-#connections-svg{position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible}
-path.conn{fill:none;stroke-width:1;opacity:.09;transition:opacity .2s,stroke-width .2s}
-path.conn.active{opacity:.75;stroke-width:2}path.conn.dimmed{opacity:.03}
-.trigger-panel{position:sticky;bottom:0;background:var(--surface);border-top:2px solid var(--border);padding:13px 28px;z-index:50;display:none;box-shadow:0 -2px 10px rgba(0,0,0,.07);max-height:240px;overflow-y:auto}
-.trigger-panel.visible{display:block}
-.trigger-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
-.trigger-panel-title{font-size:.68rem;font-weight:600;color:var(--text);font-family:'JetBrains Mono',monospace}
-.flow-label{font-size:.62rem;color:var(--text2);margin-top:1px}
-.clear-btn{background:#f1f5f9;border:1px solid var(--border2);border-radius:4px;padding:4px 11px;font-size:.6rem;font-family:'JetBrains Mono',monospace;cursor:pointer;color:var(--text2)}
-.clear-btn:hover{background:#e2e8f0;color:var(--text)}
-.triggers-list{display:flex;gap:9px;flex-wrap:wrap}
-.trigger-badge{display:inline-flex;flex-direction:column;background:#f8fafc;border:1px solid var(--border);border-radius:5px;padding:7px 11px;min-width:170px;max-width:300px}
-.trigger-badge.meta{border-left:3px solid #7c3aed}.trigger-badge.route{border-left:3px solid #059669}
-.tb-layer{font-family:'JetBrains Mono',monospace;font-size:.5rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
-.tb-layer.meta{color:#7c3aed}.tb-layer.route{color:#059669}
-.tb-title{font-size:.6rem;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.3}
-.tb-tag{font-family:'JetBrains Mono',monospace;font-size:.53rem;color:#7c3aed;margin-top:3px;background:#f5f3ff;border-radius:3px;padding:1px 5px;display:inline-block}
-.tb-desc{font-size:.56rem;color:var(--text2);line-height:1.4}
+body{font-family:'Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.header-left h1{font-size:15px;font-weight:600;letter-spacing:.01em}
+.header-left p{font-size:12px;color:var(--text3);margin-top:2px}
+.timestamp{background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:5px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#15803d;white-space:nowrap}
+.toolbar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.toolbar-label{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+.clear-btn{display:none;align-items:center;gap:6px;padding:4px 12px;background:var(--text);color:white;border:none;border-radius:4px;font-size:12px;font-family:'JetBrains Mono',monospace;cursor:pointer}
+.clear-btn:hover{background:#333}.clear-btn.visible{display:flex}
+.stats{margin-left:auto;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.flow-area{display:grid;grid-template-columns:320px 1fr 320px;min-height:calc(100vh - 120px)}
+.col{padding:16px;overflow-y:auto}
+.col-left{border-right:1px solid var(--border);background:var(--surface)}
+.col-mid{background:var(--bg);position:relative;min-height:600px}
+.col-right{border-left:1px solid var(--border);background:var(--surface)}
+.col-section-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:8px 0 6px;border-bottom:1px solid var(--border);margin-bottom:8px;margin-top:8px;display:flex;align-items:center;gap:6px}
+.col-section-header:first-child{margin-top:0}
+.section-count{background:var(--bg);border-radius:10px;padding:1px 6px;font-size:9px;color:var(--text3)}
+.source-item{display:flex;align-items:flex-start;gap:8px;padding:7px 8px;border-radius:5px;cursor:pointer;margin-bottom:3px;border:1px solid transparent;transition:all .15s}
+.source-item:hover{background:var(--surface2);border-color:var(--border)}
+.source-item.selected{background:var(--surface2);border-color:var(--border2);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.source-item.dimmed{opacity:.25}
+.source-email{border-left:3px solid var(--email-border);background:var(--email-bg)}
+.source-form{border-left:3px solid var(--form-border);background:var(--form-bg)}
+.source-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.source-text{flex:1;min-width:0}
+.source-addr{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;word-break:break-all;line-height:1.4}
+.source-form .source-addr{font-family:'Source Serif 4',serif;font-size:12px;font-weight:400;word-break:normal}
+.source-meta{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--text3);margin-top:2px}
+.group-section{margin-bottom:12px}
+.group-section-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:6px 8px 5px;border-radius:4px 4px 0 0;margin-bottom:2px;border-bottom:2px solid currentColor}
+.group-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:4px;cursor:pointer;margin-bottom:2px;border:1px solid transparent;transition:all .15s}
+.group-item:hover{background:var(--surface2);border-color:var(--border)}
+.group-item.selected{background:var(--surface2);border-color:var(--border2);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.group-item.dimmed{opacity:.2}
+.group-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.group-name{font-size:12px;flex:1;line-height:1.4}
+.group-badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:1px 5px;border-radius:8px;color:white;flex-shrink:0}
+#svg-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+#trigger-panel{
+  display:none;position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(860px,90vw);background:var(--panel-bg);color:var(--panel-text);
+  border:1px solid rgba(255,255,255,.12);border-bottom:none;
+  border-radius:10px 10px 0 0;padding:14px 20px 18px;
+  font-family:'JetBrains Mono',monospace;z-index:200;
+  box-shadow:0 -4px 24px rgba(0,0,0,.25);max-height:40vh;overflow-y:auto
+}
+#trigger-panel.visible{display:block}
+.panel-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#9c9a95;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.panel-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:4px;color:#9c9a95;font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;cursor:pointer}
+.panel-close:hover{background:rgba(255,255,255,.18);color:#fff}
+.trigger-cards{display:flex;gap:12px;flex-wrap:wrap}
+.trigger-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:10px 14px;min-width:260px;max-width:400px;flex:1}
+.trigger-card-label{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#9c9a95;margin-bottom:4px}
+.trigger-card-title{font-size:11px;color:#f0ede8;line-height:1.5;margin-bottom:6px}
+.trigger-card-tag{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:3px;padding:2px 7px;font-size:10px;color:#c4b5fd}
+.trigger-card-group{margin-top:6px;font-size:10px}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="header-row">
-    <div>
-      <h1>Háskóli Íslands · Zendesk · Þjónustunetföng → Þjónustuhópar</h1>
-      <p>Byggt á active triggers. META les recipient → setur tag · ROUTE les tag → setur group. Smelltu á netfang eða hóp.</p>
-      <div class="stats">
-        <div class="stat">Þjónustunetföng: <span id="se">0</span></div>
-        <div class="stat">Hópar: <span id="sg">0</span></div>
-        <div class="stat">Tengingar: <span id="sc">0</span></div>
-      </div>
-    </div>
-    <div class="fetch-box">
-      <div class="fb-label">Stillingar sóttar</div>
-      <div class="fb-date">2026-03-05</div>
-      <div class="fb-time">2026-03-05 07:02 UTC</div>
-    </div>
+<header>
+  <div class="header-left">
+    <h1>Háskóli Íslands — Zendesk Flæðiskema</h1>
+    <p>Hvernig beiðnir berast til þjónustuhópa í gegnum netföng og innsláttarform</p>
   </div>
+  <div class="timestamp">all_triggers: 2026-03-05 · Skjal búið til: 2026-03-05 10:11 UTC</div>
+</header>
+<div class="toolbar">
+  <span class="toolbar-label">Smelltu á netfang, form eða hóp til að sjá tengingar</span>
+  <button class="clear-btn" id="clear-btn" onclick="clearSelection()">✕ Hreinsa val</button>
+  <span class="stats" id="stats-label"></span>
 </div>
-<div class="legend">
-  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>FJSV</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div>UTS/IREI</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>MAN</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#059669"></div>KEN</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#d97706"></div>VNS</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div>ÞJSBORÐ</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#db2777"></div>HVS</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#65a30d"></div>VoN</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#ea580c"></div>FTS</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0d9488"></div>HUG</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#7e22ce"></div>MSS/MVS</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#64748b"></div>Annað</div>
-</div>
-<div class="diagram-wrap" id="diagram">
-  <div class="email-col" id="email-col"><div class="col-title">Þjónustunetföng</div></div>
-  <div class="svg-canvas" id="svg-canvas"><svg id="connections-svg"></svg></div>
-  <div class="group-col" id="group-col"><div class="col-title">Þjónustuhópar</div></div>
-</div>
-<div class="trigger-panel" id="trigger-panel">
-  <div class="trigger-panel-header">
-    <div>
-      <div class="trigger-panel-title" id="panel-title">Triggerar</div>
-      <div class="flow-label" id="panel-flow"></div>
-    </div>
-    <button class="clear-btn" onclick="clearSel()">✕ Hreinsa val</button>
+<div class="flow-area" id="flow-area">
+  <div class="col col-left" id="col-left">
+    <div class="col-section-header">📧 Þjónustunetföng <span class="section-count" id="email-count"></span></div>
+    <div id="emails-container"></div>
+    <div class="col-section-header" style="margin-top:16px">📋 Innsláttarform <span class="section-count" id="form-count"></span></div>
+    <div id="forms-container"></div>
   </div>
-  <div class="triggers-list" id="triggers-list"></div>
+  <div class="col col-mid" id="col-mid"><svg id="svg-canvas"></svg></div>
+  <div class="col col-right" id="col-right"><div id="groups-container"></div></div>
+</div>
+<div id="trigger-panel">
+  <div class="panel-title">
+    <span>Trigger-upplýsingar um valda tengingu</span>
+    <button class="panel-close" onclick="clearSelection()">✕ Loka</button>
+  </div>
+  <div class="trigger-cards" id="trigger-cards"></div>
 </div>
 <script>
-const connections=[{"email": "academia@hi.is", "group": "VNS-Rannsóknasjóðir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "meta_tag": "meta_vnsrannsoknasjodir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir"}, {"email": "biotech@hi.is", "group": "VoN mastersnám", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "meta_tag": "meta_von_masters", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám"}, {"email": "bokhald@hi.is", "group": "FJSV bókhald", "meta_title": "[CREATE][META][FJSV] – Classify source bókhald", "meta_tag": "meta_fjsvbokhald", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV bókhald"}, {"email": "erlendirreikningar@hi.is", "group": "FJSV erlendir reikningar", "meta_title": "[CREATE][META][FJSV] – Classify source erlendir reikningar", "meta_tag": "meta_fjsverlendirreikningar", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV erlendir reikningar"}, {"email": "ferdabeidnir@hi.is", "group": "FJSV ferðamál", "meta_title": "[CREATE][META][FJSV] – Classify source ferðabeiðnir", "meta_tag": "meta_fjsvferdabeidnir", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV ferðamál"}, {"email": "fjarmalasvid@hi.is", "group": "FJSV reikningagerð og millifærslur", "meta_title": "[CREATE][META][FJSV] – Classify source reikningagerð og millifærslur", "meta_tag": "meta_fjsvreikn", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV reikningagerð og millifærslur"}, {"email": "fjarprof@hi.is", "group": "KEN-Fjarpróf", "meta_title": "[CREATE][META][KEN] – Classify fjarpróf", "meta_tag": "meta_ken_fjarprof", "route_title": "[CREATE][ROUTE][KEN] – Route to KEN-Fjarpróf"}, {"email": "fraedsla@hi.is", "group": "MAN-Mannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "meta_tag": "meta_manmannauður", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður"}, {"email": "gestaibudir@hi.is", "group": "Þjónustuborð - Gestaíbúðir / Guest apartments", "meta_title": "[CREATE][META][THSV] – Classify source gestaíbúðir", "meta_tag": "meta_thsv_gestaibudir", "route_title": "[CREATE][ROUTE][THSV] – Úthluta til Gestaíbúðir"}, {"email": "gjaldkeri@hi.is", "group": "FJSV gjaldkerar", "meta_title": "[CREATE][META][FJSV] – Classify source gjaldkeri", "meta_tag": "meta_fjsvgjaldkeri", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV gjaldkeri"}, {"email": "grantsoffice@hi.is", "group": "VNS-Styrkjaskrifstofa", "meta_title": "[CREATE][META][VNS] – VísNýs styrkjaskrifstofa", "meta_tag": "meta_vnsstyrkjaskrifstofa", "route_title": "[CREATE][ROUTE][VNS] – VísNýs styrkjaskrifstofa"}, {"email": "help@hi.is", "group": "2. Tölvuþjónusta / IT Services", "meta_title": "[CREATE][META][UTS] – tölvuþjónusta", "meta_tag": "meta_utstolvuthjonusta", "route_title": "[CREATE][ROUTE][UTS] – Tölvuþjónusta"}, {"email": "hi@hi.is", "group": "1. Þjónustuborð / Service Desk", "meta_title": "[CREATE][META][THSV] – Classify  þjónustuborð", "meta_tag": "meta_thsv_thjonustubord", "route_title": "[CREATE][ROUTE][THSV] – Úthluta á þjónustuborð"}, {"email": "husgogn@hi.is", "group": "FTS húsgagnakaup", "meta_title": "[CREATE][META][FTS] – Húsgögn", "meta_tag": "meta_ftshusgogn", "route_title": "[CREATE][ROUTE][FTS] – Úthluta á húsgögn"}, {"email": "icelandic@hi.is", "group": "HUG Íslenska sem annað mál", "meta_title": "[CREATE][META][HUG] – Classify íslenska sem annað mál", "meta_tag": "meta_hug_icelandic", "route_title": "[CREATE][ROUTE][HUG] – Úthluta til Íslenska sem annað mál"}, {"email": "innkaup@hi.is", "group": "FJSV innkaup", "meta_title": "[CREATE][META][FJSV] – Classify source innkaup", "meta_tag": "meta_fjsvinnkaup", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV innkaup"}, {"email": "inno@hi.is", "group": "VNS-Nýsköpun", "meta_title": "[CREATE][META][VNS] – VNS nýsköpun", "meta_tag": "meta_vnsnyskopun", "route_title": "[CREATE][ROUTE][VNS] – VísNýs nýsköpun"}, {"email": "inspera@hi.is", "group": "KEN-Inspera", "meta_title": "[CREATE][META][KEN] – classify Inspera", "meta_tag": "meta_keninspera", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til KEN-Inspera"}, {"email": "internationalstaff@hi.is", "group": "MAN-International Staff", "meta_title": "[CREATE][META][MAN] – Classify internationalstaff", "meta_tag": "meta_man_internationalstaff", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á MAN-International Staff"}, {"email": "irei@haskoliislands.zendesk.com", "group": "UTS IREI", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "meta_tag": "meta_irei", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI"}, {"email": "ise@hi.is", "group": "HUG Íslenska sem annað mál", "meta_title": "[CREATE][META][HUG] – Classify íslenska sem annað mál", "meta_tag": "meta_hug_icelandic", "route_title": "[CREATE][ROUTE][HUG] – Úthluta til Íslenska sem annað mál"}, {"email": "islenskuprof@hi.is", "group": "HUG íslenskupróf", "meta_title": "[CREATE][META][HUG] – Classify íslenskupróf", "meta_tag": "meta_hug_islenskuprof", "route_title": "[CREATE][ROUTE][HUG] – Route to íslenskupróf"}, {"email": "jafnretti@hi.is", "group": "MAN-Jafnrétti", "meta_title": "[CREATE][META][MAN] – Jafnréttisfulltrúi", "meta_tag": "meta_manjafnrettisfulltrui", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til jafnréttisfulltrúa"}, {"email": "kennslumidstod@hi.is", "group": "KEN-Kennslumiðstöð", "meta_title": "[CREATE][META][KEN] – Classify kennslumidstod", "meta_tag": "meta_kennslumidstod", "route_title": "[CREATE][ROUTE][KEN] – úthlutar til kennslumiðstöðvar"}, {"email": "kennsluskra@hi.is", "group": "KEN-kennsluskrá", "meta_title": "[CREATE][META][KEN] – Classify kennsluskra", "meta_tag": "meta_kenkennsluskra", "route_title": "[CREATE][ROUTE][KEN] – Route to kennsluskra"}, {"email": "kennslustofur@hi.is", "group": "Þjónustuborð - bóka stofur og ráðstefnur", "meta_title": "[CREATE][META][THSV] – Classify bóka stofur ráðstefnur", "meta_tag": "meta_thsv_kennslustofur", "route_title": "[CREATE][ROUTE][THSV] – Úthluta bóka stofur ráðstefnur"}, {"email": "laun@hi.is", "group": "MAN-Launateymi", "meta_title": "[CREATE][META][MAN] – Classify Laun", "meta_tag": "meta_manlaun", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á launateymi"}, {"email": "mannaudskerfi@hi.is", "group": "MAN-kerfishópur", "meta_title": "[CREATE][META][MAN] – Mannauðskerfahópur", "meta_tag": "meta_mankerfis", "route_title": "[CREATE][ROUTE][MAN] – úthlutar mannauðskerfahóp"}, {"email": "mannaudur@hi.is", "group": "MAN-Starfsumhverfi", "meta_title": "[CREATE][META][MAN] – MAN starfsumhverfi", "meta_tag": "meta_manstarfsumhverfi", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN starfsumhverfi"}, {"email": "mannaudurhvs@hi.is", "group": "HVS mannauður", "meta_title": "[CREATE][META][HVS] – Mannauður", "meta_tag": "meta_hvsmannaudur", "route_title": "[CREATE][ROUTE][HVS] – Mannauður"}, {"email": "mssens@hi.is", "group": "VoN mastersnám", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "meta_tag": "meta_von_masters", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám"}, {"email": "mvs@hi.is", "group": "MVS kennsluskrifstofa", "meta_title": "[CREATE][META][MVS] – Kennsluskrifstofa menntavísindasviðs", "meta_tag": "meta_mvskennsluskr", "route_title": "[CREATE][ROUTE][MVS] – Úthlutar til kennsluskrifsofu MVS"}, {"email": "namogkennslahvs@hi.is", "group": "HVS nám og kennsla", "meta_title": "[CREATE][META][HVS] – Nám og kennsla", "meta_tag": "meta_namogkennslahvs", "route_title": "[CREATE][ROUTE][HVS] – Nám og kennsla"}, {"email": "nemvon@hi.is", "group": "VoN nemendaþjónusta", "meta_title": "[CREATE][META][VON] – Classify nemvon", "meta_tag": "meta_von_nemvon", "route_title": "[CREATE][ROUTE][VON] – Úthluta til VoN nemendaþjónusta"}, {"email": "netstjorn@hi.is", "group": "UTS netstjórn", "meta_title": "[CREATE][META][UTS] – Til netmanna", "meta_tag": "meta_utsnetmenn", "route_title": "[CREATE][ROUTE][UTS] – úthlutar til netmanna"}, {"email": "nwb2024@hi.is", "group": "VNS-Rannsóknasjóðir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "meta_tag": "meta_vnsrannsoknasjodir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir"}, {"email": "profgogn@hi.is", "group": "KEN-Prófstjóri", "meta_title": "[CREATE][META][KEN] – Classify profgögn", "meta_tag": "meta_kenprofgogn", "route_title": "[CREATE][ROUTE][KEN] – Route to Prófgögn"}, {"email": "profstjori@hi.is", "group": "KEN-Prófstjóri", "meta_title": "[CREATE][META][KEN] – Classify profstjori", "meta_tag": "meta_kenprofstjori", "route_title": "[CREATE][ROUTE][KEN] – Route to Prófstjóri"}, {"email": "pure@hi.is", "group": "VNS-Rannsóknasjóðir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "meta_tag": "meta_vnsrannsoknasjodir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir"}, {"email": "radningar@hi.is", "group": "MAN-Ráðningar", "meta_title": "[CREATE][META][MAN] – Classify radningar", "meta_tag": "meta_manradningar", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á ráðningar"}, {"email": "radstefnur@hi.is", "group": "FTS ráðstefnuaðstoð", "meta_title": "[CREATE][META][FTS] – Classify ráðstefnuráðgjöf", "meta_tag": "meta_fts_radstefnuradgjof", "route_title": "[CREATE][ROUTE][FTS] – Úthluta til ráðstefnuráðgjafar"}, {"email": "rannsoknasjodir@hi.is", "group": "VNS-Rannsóknasjóðir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "meta_tag": "meta_vnsrannsoknasjodir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir"}, {"email": "raunvis@hi.is", "group": "Raunvís", "meta_title": "[CREATE][META][RAUNVIS] – Classify source (email & forms)", "meta_tag": "meta_raunvis", "route_title": "[CREATE][ROUTE][RAUNVIS] – Route to raunvis by metadata"}, {"email": "samradsnefnd@hi.is", "group": "MAN-Samráðsnefnd", "meta_title": "[CREATE][META][MAN] – Classify samráðsnefnd", "meta_tag": "meta_man_samradsnefnd", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á samráðsnefnd"}, {"email": "servicedesk@hi.is", "group": "1. Þjónustuborð / Service Desk", "meta_title": "[CREATE][META][THSV] – Classify  þjónustuborð", "meta_tag": "meta_thsv_thjonustubord", "route_title": "[CREATE][ROUTE][THSV] – Úthluta á þjónustuborð"}, {"email": "setberg@hi.is", "group": "KEN-Kennslumiðstöð", "meta_title": "[CREATE][META][KEN] – Classify kennslumidstod", "meta_tag": "meta_kennslumidstod", "route_title": "[CREATE][ROUTE][KEN] – úthlutar til kennslumiðstöðvar"}, {"email": "skolabaer@hi.is", "group": "MAN-Mannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "meta_tag": "meta_manmannauður", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður"}, {"email": "skref@hi.is", "group": "MAN-Mannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "meta_tag": "meta_manmannauður", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður"}, {"email": "snjallraedi@hi.is", "group": "VNS-Nýsköpun", "meta_title": "[CREATE][META][VNS] – VNS nýsköpun", "meta_tag": "meta_vnsnyskopun", "route_title": "[CREATE][ROUTE][VNS] – VísNýs nýsköpun"}, {"email": "throunarsvid@hi.is", "group": "Þróunarsvið", "meta_title": "[CREATE][META][THSV] – Classify þróunarsvið", "meta_tag": "meta_throunarsvid", "route_title": "[CREATE][ROUTE][THSV] – Route to þróunarsvið"}, {"email": "umhverfi@hi.is", "group": "VoN mastersnám", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "meta_tag": "meta_von_masters", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám"}, {"email": "vefstjori@hi.is", "group": "MSS vefhópur", "meta_title": "[CREATE][META][MSS] – vefstjóri", "meta_tag": "meta_mssvefstjori", "route_title": "[CREATE][ROUTE][MSS] – úthlutar vefstjóra"}, {"email": "ver@hi.is", "group": "VNS-VER", "meta_title": "[CREATE][META][VNS] – VísNýs Ver", "meta_tag": "meta_vnsver", "route_title": "[CREATE][ROUTE][VNS] – VísNýs VER"}, {"email": "zendesksupport@haskoliislands.zendesk.com", "group": "Zendesk sýslarar", "meta_title": "[CREATE][META][THSV] – Classify zendesk kerfisþjónusta", "meta_tag": "meta_zendeskkerfi", "route_title": "[CREATE][ROUTE][THSV] – Route to zendesk kerfisþjónusta"}, {"email": "zendesktest@hi.is", "group": "HVS fjármál", "meta_title": "[CREATE][META][HVS] – Fjármálaþjónusta", "meta_tag": "meta_hvsfjarmal", "route_title": "[CREATE][ROUTE][HVS] – Fjármálaþjónusta"}];
-const emailOrder=["academia@hi.is", "biotech@hi.is", "bokhald@hi.is", "erlendirreikningar@hi.is", "ferdabeidnir@hi.is", "fjarmalasvid@hi.is", "fjarprof@hi.is", "fraedsla@hi.is", "gestaibudir@hi.is", "gjaldkeri@hi.is", "grantsoffice@hi.is", "help@hi.is", "hi@hi.is", "husgogn@hi.is", "icelandic@hi.is", "innkaup@hi.is", "inno@hi.is", "inspera@hi.is", "internationalstaff@hi.is", "irei@haskoliislands.zendesk.com", "ise@hi.is", "islenskuprof@hi.is", "jafnretti@hi.is", "kennslumidstod@hi.is", "kennsluskra@hi.is", "kennslustofur@hi.is", "laun@hi.is", "mannaudskerfi@hi.is", "mannaudur@hi.is", "mannaudurhvs@hi.is", "mssens@hi.is", "mvs@hi.is", "namogkennslahvs@hi.is", "nemvon@hi.is", "netstjorn@hi.is", "nwb2024@hi.is", "profgogn@hi.is", "profstjori@hi.is", "pure@hi.is", "radningar@hi.is", "radstefnur@hi.is", "rannsoknasjodir@hi.is", "raunvis@hi.is", "samradsnefnd@hi.is", "servicedesk@hi.is", "setberg@hi.is", "skolabaer@hi.is", "skref@hi.is", "snjallraedi@hi.is", "throunarsvid@hi.is", "umhverfi@hi.is", "vefstjori@hi.is", "ver@hi.is", "zendesksupport@haskoliislands.zendesk.com", "zendesktest@hi.is"];
-const groupOrder=["1. Þjónustuborð / Service Desk", "FJSV bókhald", "FJSV erlendir reikningar", "FJSV ferðamál", "FJSV gjaldkerar", "FJSV innkaup", "FJSV reikningagerð og millifærslur", "FTS húsgagnakaup", "FTS ráðstefnuaðstoð", "HUG Íslenska sem annað mál", "HUG íslenskupróf", "HVS fjármál", "HVS mannauður", "HVS nám og kennsla", "KEN-Fjarpróf", "KEN-Inspera", "KEN-Kennslumiðstöð", "KEN-Prófstjóri", "KEN-kennsluskrá", "MAN-International Staff", "MAN-Jafnrétti", "MAN-Launateymi", "MAN-Mannauður", "MAN-Ráðningar", "MAN-Samráðsnefnd", "MAN-Starfsumhverfi", "MAN-kerfishópur", "MSS vefhópur", "MVS kennsluskrifstofa", "Raunvís", "UTS IREI", "UTS netstjórn", "VNS-Nýsköpun", "VNS-Rannsóknasjóðir", "VNS-Styrkjaskrifstofa", "VNS-VER", "VoN mastersnám", "VoN nemendaþjónusta", "Zendesk sýslarar", "Þjónustuborð - Gestaíbúðir / Guest apartments", "Þjónustuborð - bóka stofur og ráðstefnur", "Þróunarsvið", "2. Tölvuþjónusta / IT Services"];
-function gcls(n){
-  if(n.startsWith('FJSV'))return 'g-fjsv';
-  if(n.startsWith('UTS')||n.includes('IREI'))return 'g-uts';
-  if(n.startsWith('MAN'))return 'g-man';
-  if(n.startsWith('KEN'))return 'g-ken';
-  if(n.startsWith('VNS'))return 'g-vns';
-  if(n.startsWith('1. Þjón')||n.startsWith('Þjón')||n.startsWith('Þró'))return 'g-thsv';
-  if(n.startsWith('HVS'))return 'g-hvs';
-  if(n.startsWith('VoN'))return 'g-von';
-  if(n.startsWith('FTS'))return 'g-fts';
-  if(n.startsWith('HUG'))return 'g-hug';
-  if(n.startsWith('MSS')||n.startsWith('MVS'))return 'g-mss';
-  return 'g-other';
+const FLOWS = [{"type": "email", "source": "irei@haskoliislands.zendesk.com", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI Support ", "form_id": "44245582302363", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI - Bæta við nýjum notanda ", "form_id": "44242348051867", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI - Umsókn að diskaplássi", "form_id": "44131081274779", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI Gagnaský - Umsókn", "form_id": "44032457036187", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI HPC - Application", "form_id": "43933615361307", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "form", "source": "IREI - Extend Access ", "form_id": "44284122518171", "meta_tag": "meta_irei", "meta_title": "[CREATE][META][IREI] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][IREI] – Úthluta til IREI", "group_id": "32777708820507", "group_name": "UTS IREI"}, {"type": "email", "source": "raunvis@hi.is", "meta_tag": "meta_raunvis", "meta_title": "[CREATE][META][RAUNVIS] – Classify source (email & forms)", "route_title": "[CREATE][ROUTE][RAUNVIS] – Route to raunvis by metadata", "group_id": "43641593881755", "group_name": "Raunvís"}, {"type": "form", "source": "FTS Umsókn um aðgangskort", "form_id": "41888491159323", "meta_tag": "meta_adgangskort", "meta_title": "[CREATE][META][FTS] – Aðgangskort", "route_title": "[CREATE][ROUTE][FTS] – Úthluta aðgangskort", "group_id": "41476371062299", "group_name": "FTS fasteignaumsjón"}, {"type": "form", "source": "FTS Umsókn um aðgang að hjólaskýli", "form_id": "46705170264987", "meta_tag": "meta_hjolaskylisadgangur", "meta_title": "[CREATE][META][FTS] – Merkja beiðni um aðgang að hjólaskýli", "route_title": "[CREATE][ROUTE][FTS] – Úthluta á þjónustuhóp hjólaskýla", "group_id": "41476371062299", "group_name": "FTS fasteignaumsjón"}, {"type": "email", "source": "husgogn@hi.is", "meta_tag": "meta_ftshusgogn", "meta_title": "[CREATE][META][FTS] – Húsgögn", "route_title": "[CREATE][ROUTE][FTS] – Úthluta á húsgögn", "group_id": "34783552301211", "group_name": "FTS húsgagnakaup"}, {"type": "email", "source": "radstefnur@hi.is", "meta_tag": "meta_fts_radstefnuradgjof", "meta_title": "[CREATE][META][FTS] – Classify ráðstefnuráðgjöf", "route_title": "[CREATE][ROUTE][FTS] – Úthluta til ráðstefnuráðgjafar", "group_id": "34783528216475", "group_name": "FTS ráðstefnuaðstoð"}, {"type": "email", "source": "zendesktest@hi.is", "meta_tag": "meta_hvsfjarmal", "meta_title": "[CREATE][META][HVS] – Fjármálaþjónusta", "route_title": "[CREATE][ROUTE][HVS] – Fjármálaþjónusta", "group_id": "37958970635035", "group_name": "HVS fjármál"}, {"type": "form", "source": "HVS beiðni um fjármálaþjónustu", "form_id": "46710210012827", "meta_tag": "meta_hvsfjarmal", "meta_title": "[CREATE][META][HVS] – Fjármálaþjónusta", "route_title": "[CREATE][ROUTE][HVS] – Fjármálaþjónusta", "group_id": "37958970635035", "group_name": "HVS fjármál"}, {"type": "email", "source": "namogkennslahvs@hi.is", "meta_tag": "meta_namogkennslahvs", "meta_title": "[CREATE][META][HVS] – Nám og kennsla", "route_title": "[CREATE][ROUTE][HVS] – Nám og kennsla", "group_id": "37958946070939", "group_name": "HVS nám og kennsla"}, {"type": "form", "source": "HVS nám og kennsla", "form_id": "43559557646107", "meta_tag": "meta_namogkennslahvs", "meta_title": "[CREATE][META][HVS] – Nám og kennsla", "route_title": "[CREATE][ROUTE][HVS] – Nám og kennsla", "group_id": "37958946070939", "group_name": "HVS nám og kennsla"}, {"type": "email", "source": "mannaudurhvs@hi.is", "meta_tag": "meta_hvsmannaudur", "meta_title": "[CREATE][META][HVS] – Mannauður", "route_title": "[CREATE][ROUTE][HVS] – Mannauður", "group_id": "37958953872667", "group_name": "HVS mannauður"}, {"type": "email", "source": "nemvon@hi.is", "meta_tag": "meta_von_nemvon", "meta_title": "[CREATE][META][VON] – Classify nemvon", "route_title": "[CREATE][ROUTE][VON] – Úthluta til VoN nemendaþjónusta", "group_id": "39728009223835", "group_name": "VoN nemendaþjónusta"}, {"type": "email", "source": "mssens@hi.is", "meta_tag": "meta_von_masters", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám", "group_id": "39728014545563", "group_name": "VoN mastersnám"}, {"type": "email", "source": "umhverfi@hi.is", "meta_tag": "meta_von_masters", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám", "group_id": "39728014545563", "group_name": "VoN mastersnám"}, {"type": "email", "source": "biotech@hi.is", "meta_tag": "meta_von_masters", "meta_title": "[CREATE][META][VON] – Classify VON mastersnám", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til VoN mastersnám", "group_id": "39728014545563", "group_name": "VoN mastersnám"}, {"type": "email", "source": "fjarmalasvid@hi.is", "meta_tag": "meta_fjsvreikn", "meta_title": "[CREATE][META][FJSV] – Classify source reikningagerð og millifærslur", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV reikningagerð og millifærslur", "group_id": "34783129145499", "group_name": "FJSV reikningagerð og millifærslur"}, {"type": "email", "source": "innkaup@hi.is", "meta_tag": "meta_fjsvinnkaup", "meta_title": "[CREATE][META][FJSV] – Classify source innkaup", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV innkaup", "group_id": "36812757567387", "group_name": "FJSV innkaup"}, {"type": "email", "source": "bokhald@hi.is", "meta_tag": "meta_fjsvbokhald", "meta_title": "[CREATE][META][FJSV] – Classify source bókhald", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV bókhald", "group_id": "37011550630299", "group_name": "FJSV bókhald"}, {"type": "email", "source": "gjaldkeri@hi.is", "meta_tag": "meta_fjsvgjaldkeri", "meta_title": "[CREATE][META][FJSV] – Classify source gjaldkeri", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV gjaldkeri", "group_id": "43976195331611", "group_name": "FJSV gjaldkerar"}, {"type": "email", "source": "ferdabeidnir@hi.is", "meta_tag": "meta_fjsvferdabeidnir", "meta_title": "[CREATE][META][FJSV] – Classify source ferðabeiðnir", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV ferðamál", "group_id": "43976151909403", "group_name": "FJSV ferðamál"}, {"type": "email", "source": "erlendirreikningar@hi.is", "meta_tag": "meta_fjsverlendirreikningar", "meta_title": "[CREATE][META][FJSV] – Classify source erlendir reikningar", "route_title": "[CREATE][ROUTE][FJSV] – Route to FJSV erlendir reikningar", "group_id": "46777634543387", "group_name": "FJSV erlendir reikningar"}, {"type": "email", "source": "help@hi.is", "meta_tag": "meta_utstolvuthjonusta", "meta_title": "[CREATE][META][UTS] – tölvuþjónusta", "route_title": "[CREATE][ROUTE][UTS] – Tölvuþjónusta", "group_id": "20997177191451", "group_name": "2. Tölvuþjónusta / IT Services"}, {"type": "form", "source": "UTS IT Support", "form_id": "21024435629723", "meta_tag": "meta_utstolvuthjonusta", "meta_title": "[CREATE][META][UTS] – tölvuþjónusta", "route_title": "[CREATE][ROUTE][UTS] – Tölvuþjónusta", "group_id": "20997177191451", "group_name": "2. Tölvuþjónusta / IT Services"}, {"type": "form", "source": "UTS Beiðni um kerfisaðgang", "form_id": "33716370154523", "meta_tag": "meta_utstolvuthjonusta", "meta_title": "[CREATE][META][UTS] – tölvuþjónusta", "route_title": "[CREATE][ROUTE][UTS] – Tölvuþjónusta", "group_id": "20997177191451", "group_name": "2. Tölvuþjónusta / IT Services"}, {"type": "form", "source": "UTS Beiðni um kerfisstjórnarréttindi á vinnustöð", "form_id": "39915072827291", "meta_tag": "meta_utsupplysingaoryggi", "meta_title": "[CREATE][META][UTS] – Classify upplýsingaöryggisráð", "route_title": "[CREATE][ROUTE][UTS] – Route to upplýsingaöryggisráð", "group_id": "39915082471323", "group_name": "UTS upplýsingaöryggi"}, {"type": "form", "source": "UTS Beiðni um upplýsingatæknivöru", "form_id": "31133674785563", "meta_tag": "meta_uts_beidniumvoru", "meta_title": "[CREATE][META][UTS] – Classify beiðni um upplýsingatæknivöru", "route_title": "[CREATE][ROUTE][UTS] – Route to UTS umsýsla beiðna um vörur", "group_id": "41189531479451", "group_name": "UTS umsýsla beiðna um vörur"}, {"type": "email", "source": "netstjorn@hi.is", "meta_tag": "meta_utsnetmenn", "meta_title": "[CREATE][META][UTS] – Til netmanna", "route_title": "[CREATE][ROUTE][UTS] – úthlutar til netmanna", "group_id": "30305276795931", "group_name": "UTS netstjórn"}, {"type": "email", "source": "jafnretti@hi.is", "meta_tag": "meta_manjafnrettisfulltrui", "meta_title": "[CREATE][META][MAN] – Jafnréttisfulltrúi", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til jafnréttisfulltrúa", "group_id": "35137714794395", "group_name": "MAN-Jafnrétti"}, {"type": "email", "source": "mannaudskerfi@hi.is", "meta_tag": "meta_mankerfis", "meta_title": "[CREATE][META][MAN] – Mannauðskerfahópur", "route_title": "[CREATE][ROUTE][MAN] – úthlutar mannauðskerfahóp", "group_id": "30964989808667", "group_name": "MAN-kerfishópur"}, {"type": "email", "source": "fraedsla@hi.is", "meta_tag": "meta_manmannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður", "group_id": "26361330808347", "group_name": "MAN-Mannauður"}, {"type": "email", "source": "skolabaer@hi.is", "meta_tag": "meta_manmannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður", "group_id": "26361330808347", "group_name": "MAN-Mannauður"}, {"type": "form", "source": "MAN Mannauðssvið", "form_id": "26855530526363", "meta_tag": "meta_manmannauður", "meta_title": "[CREATE][META][MAN] – Classify MAN Mannaussvið source", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN mannauður", "group_id": "26361330808347", "group_name": "MAN-Mannauður"}, {"type": "email", "source": "mannaudur@hi.is", "meta_tag": "meta_manstarfsumhverfi", "meta_title": "[CREATE][META][MAN] – MAN starfsumhverfi", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN starfsumhverfi", "group_id": "26914075082523", "group_name": "MAN-Starfsumhverfi"}, {"type": "form", "source": "Ábendingar um fæði og mataraðstöðu", "form_id": "39095165803419", "meta_tag": "meta_manstarfsumhverfi", "meta_title": "[CREATE][META][MAN] – MAN starfsumhverfi", "route_title": "[CREATE][ROUTE][MAN] – úthlutar til MAN starfsumhverfi", "group_id": "26914075082523", "group_name": "MAN-Starfsumhverfi"}, {"type": "email", "source": "radningar@hi.is", "meta_tag": "meta_manradningar", "meta_title": "[CREATE][META][MAN] – Classify radningar", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á ráðningar", "group_id": "32446462826779", "group_name": "MAN-Ráðningar"}, {"type": "email", "source": "samradsnefnd@hi.is", "meta_tag": "meta_man_samradsnefnd", "meta_title": "[CREATE][META][MAN] – Classify samráðsnefnd", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á samráðsnefnd", "group_id": "26965585382683", "group_name": "MAN-Samráðsnefnd"}, {"type": "email", "source": "laun@hi.is", "meta_tag": "meta_manlaun", "meta_title": "[CREATE][META][MAN] – Classify Laun", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á launateymi", "group_id": "26782158098715", "group_name": "MAN-Launateymi"}, {"type": "email", "source": "skref@hi.is", "meta_tag": "meta_man_skref", "meta_title": "[CREATE][META][MAN] – Classify skref", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "email", "source": "mottokumidja@hi.is", "meta_tag": "meta_man_mottokumidja", "meta_title": "[CREATE][META][MAN] – Classify móttökumiðja", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "email", "source": "internationalstaff@hi.is", "meta_tag": "meta_man_internationalstaff", "meta_title": "[CREATE][META][MAN] – Classify internationalstaff", "route_title": "[CREATE][ROUTE][MAN] – Úthluta á MAN-International Staff", "group_id": "32446477102747", "group_name": "MAN-International Staff"}, {"type": "email", "source": "vefstjori@hi.is", "meta_tag": "meta_mssvefstjori", "meta_title": "[CREATE][META][MSS] – vefstjóri", "route_title": "[CREATE][ROUTE][MSS] – úthlutar vefstjóra", "group_id": "34705145706139", "group_name": "MSS vefhópur"}, {"type": "email", "source": "mvs@hi.is", "meta_tag": "meta_mvskennsluskr", "meta_title": "[CREATE][META][MVS] – Kennsluskrifstofa menntavísindasviðs", "route_title": "[CREATE][ROUTE][MVS] – Úthlutar til kennsluskrifsofu MVS", "group_id": "41475708596379", "group_name": "MVS kennsluskrifstofa"}, {"type": "email", "source": "grantsoffice@hi.is", "meta_tag": "meta_vnsstyrkjaskrifstofa", "meta_title": "[CREATE][META][VNS] – VísNýs styrkjaskrifstofa", "route_title": "[CREATE][ROUTE][VNS] – VísNýs styrkjaskrifstofa", "group_id": "26782093491739", "group_name": "VNS-Styrkjaskrifstofa"}, {"type": "email", "source": "ver@hi.is", "meta_tag": "meta_vnsver", "meta_title": "[CREATE][META][VNS] – VísNýs Ver", "route_title": "[CREATE][ROUTE][VNS] – VísNýs VER", "group_id": "26782084784283", "group_name": "VNS-VER"}, {"type": "email", "source": "snjallraedi@hi.is", "meta_tag": "meta_vnsnyskopun", "meta_title": "[CREATE][META][VNS] – VNS nýsköpun", "route_title": "[CREATE][ROUTE][VNS] – VísNýs nýsköpun", "group_id": "26782064558875", "group_name": "VNS-Nýsköpun"}, {"type": "email", "source": "inno@hi.is", "meta_tag": "meta_vnsnyskopun", "meta_title": "[CREATE][META][VNS] – VNS nýsköpun", "route_title": "[CREATE][ROUTE][VNS] – VísNýs nýsköpun", "group_id": "26782064558875", "group_name": "VNS-Nýsköpun"}, {"type": "email", "source": "rannsoknasjodir@hi.is", "meta_tag": "meta_vnsrannsoknasjodir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir", "group_id": "21994882568859", "group_name": "VNS-Rannsóknasjóðir"}, {"type": "email", "source": "academia@hi.is", "meta_tag": "meta_vnsrannsoknasjodir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir", "group_id": "21994882568859", "group_name": "VNS-Rannsóknasjóðir"}, {"type": "email", "source": "pure@hi.is", "meta_tag": "meta_vnsrannsoknasjodir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir", "group_id": "21994882568859", "group_name": "VNS-Rannsóknasjóðir"}, {"type": "email", "source": "nwb2024@hi.is", "meta_tag": "meta_vnsrannsoknasjodir", "meta_title": "[CREATE][META][VNS] – VNS rannsóknasjóðir", "route_title": "[CREATE][ROUTE][VNS] – VísNýs rannsóknasjóðir", "group_id": "21994882568859", "group_name": "VNS-Rannsóknasjóðir"}, {"type": "email", "source": "kennsluskra@hi.is", "meta_tag": "meta_kenkennsluskra", "meta_title": "[CREATE][META][KEN] – Classify kennsluskra", "route_title": "[CREATE][ROUTE][KEN] – Route to kennsluskra", "group_id": "28104731045147", "group_name": "KEN-kennsluskrá"}, {"type": "email", "source": "profstjori@hi.is", "meta_tag": "meta_kenprofstjori", "meta_title": "[CREATE][META][KEN] – Classify profstjori", "route_title": "[CREATE][ROUTE][KEN] – Route to Prófstjóri", "group_id": "26744385703323", "group_name": "KEN-Prófstjóri"}, {"type": "email", "source": "kennslumidstod@hi.is", "meta_tag": "meta_kennslumidstod", "meta_title": "[CREATE][META][KEN] – Classify kennslumidstod", "route_title": "[CREATE][ROUTE][KEN] – úthlutar til kennslumiðstöðvar", "group_id": "26744397675035", "group_name": "KEN-Kennslumiðstöð"}, {"type": "email", "source": "setberg@hi.is", "meta_tag": "meta_kennslumidstod", "meta_title": "[CREATE][META][KEN] – Classify kennslumidstod", "route_title": "[CREATE][ROUTE][KEN] – úthlutar til kennslumiðstöðvar", "group_id": "26744397675035", "group_name": "KEN-Kennslumiðstöð"}, {"type": "email", "source": "inspera@hi.is", "meta_tag": "meta_keninspera", "meta_title": "[CREATE][META][KEN] – classify Inspera", "route_title": "[CREATE][ROUTE][KEN] – Úthluta til KEN-Inspera", "group_id": "26744404907931", "group_name": "KEN-Inspera"}, {"type": "email", "source": "profgogn@hi.is", "meta_tag": "meta_kenprofgogn", "meta_title": "[CREATE][META][KEN] – Classify profgögn", "route_title": "[CREATE][ROUTE][KEN] – Route to Prófgögn", "group_id": "26744385703323", "group_name": "KEN-Prófstjóri"}, {"type": "email", "source": "fjarprof@hi.is", "meta_tag": "meta_ken_fjarprof", "meta_title": "[CREATE][META][KEN] – Classify fjarpróf", "route_title": "[CREATE][ROUTE][KEN] – Route to KEN-Fjarpróf", "group_id": "26744412408475", "group_name": "KEN-Fjarpróf"}, {"type": "email", "source": "islenskuprof@hi.is", "meta_tag": "meta_hug_islenskuprof", "meta_title": "[CREATE][META][HUG] – Classify íslenskupróf", "route_title": "[CREATE][ROUTE][HUG] – Route to íslenskupróf", "group_id": "47079566942491", "group_name": "HUG íslenskupróf"}, {"type": "email", "source": "ise@hi.is", "meta_tag": "meta_hug_icelandic", "meta_title": "[CREATE][META][HUG] – Classify íslenska sem annað mál", "route_title": "[CREATE][ROUTE][HUG] – Úthluta til Íslenska sem annað mál", "group_id": "43153008800795", "group_name": "HUG Íslenska sem annað mál"}, {"type": "email", "source": "icelandic@hi.is", "meta_tag": "meta_hug_icelandic", "meta_title": "[CREATE][META][HUG] – Classify íslenska sem annað mál", "route_title": "[CREATE][ROUTE][HUG] – Úthluta til Íslenska sem annað mál", "group_id": "43153008800795", "group_name": "HUG Íslenska sem annað mál"}, {"type": "email", "source": "skolabaer@hi.is", "meta_tag": "meta_skolabaer", "meta_title": "[CREATE][META][THSV] – Classify skolabaer@hi.is", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "email", "source": "studentakort@hi.is", "meta_tag": "meta_studentakort", "meta_title": "[CREATE][META][THSV] – Classify studentakort", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "email", "source": "haskolatorg@hi.is", "meta_tag": "meta_thsv_haskolatorg", "meta_title": "[CREATE][META][THSV] – Classify háskólatorg", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "email", "source": "hi@hi.is", "meta_tag": "meta_thsv_thjonustubord", "meta_title": "[CREATE][META][THSV] – Classify  þjónustuborð", "route_title": "[CREATE][ROUTE][THSV] – Úthluta á þjónustuborð", "group_id": "18874680304155", "group_name": "1. Þjónustuborð / Service Desk"}, {"type": "email", "source": "servicedesk@hi.is", "meta_tag": "meta_thsv_thjonustubord", "meta_title": "[CREATE][META][THSV] – Classify  þjónustuborð", "route_title": "[CREATE][ROUTE][THSV] – Úthluta á þjónustuborð", "group_id": "18874680304155", "group_name": "1. Þjónustuborð / Service Desk"}, {"type": "form", "source": "Brautskráningarskíteini", "form_id": "37966978061467", "meta_tag": "meta_thsv_thjonustubord", "meta_title": "[CREATE][META][THSV] – Classify  þjónustuborð", "route_title": "[CREATE][ROUTE][THSV] – Úthluta á þjónustuborð", "group_id": "18874680304155", "group_name": "1. Þjónustuborð / Service Desk"}, {"type": "email", "source": "kennslustofur@hi.is", "meta_tag": "meta_thsv_kennslustofur", "meta_title": "[CREATE][META][THSV] – Classify bóka stofur ráðstefnur", "route_title": "[CREATE][ROUTE][THSV] – Úthluta bóka stofur ráðstefnur", "group_id": "20997144732955", "group_name": "Þjónustuborð - bóka stofur og ráðstefnur"}, {"type": "form", "source": "Bóka stofur og sali", "form_id": "33595724522139", "meta_tag": "meta_thsv_kennslustofur", "meta_title": "[CREATE][META][THSV] – Classify bóka stofur ráðstefnur", "route_title": "[CREATE][ROUTE][THSV] – Úthluta bóka stofur ráðstefnur", "group_id": "20997144732955", "group_name": "Þjónustuborð - bóka stofur og ráðstefnur"}, {"type": "email", "source": "zendesksupport@haskoliislands.zendesk.com", "meta_tag": "meta_zendeskkerfi", "meta_title": "[CREATE][META][THSV] – Classify zendesk kerfisþjónusta", "route_title": "[CREATE][ROUTE][THSV] – Route to zendesk kerfisþjónusta", "group_id": "28847764858011", "group_name": "Zendesk sýslarar"}, {"type": "form", "source": "THSV Zendesk breytingabeiðni", "form_id": "28847371770139", "meta_tag": "meta_zendeskkerfi", "meta_title": "[CREATE][META][THSV] – Classify zendesk kerfisþjónusta", "route_title": "[CREATE][ROUTE][THSV] – Route to zendesk kerfisþjónusta", "group_id": "28847764858011", "group_name": "Zendesk sýslarar"}, {"type": "email", "source": "gestaibudir@hi.is", "meta_tag": "meta_thsv_gestaibudir", "meta_title": "[CREATE][META][THSV] – Classify source gestaíbúðir", "route_title": "[CREATE][ROUTE][THSV] – Úthluta til Gestaíbúðir", "group_id": "21013119014299", "group_name": "Þjónustuborð - Gestaíbúðir / Guest apartments"}, {"type": "form", "source": "Gestagisting", "form_id": "33595062576795", "meta_tag": "meta_thsv_gestaibudir", "meta_title": "[CREATE][META][THSV] – Classify source gestaíbúðir", "route_title": "[CREATE][ROUTE][THSV] – Úthluta til Gestaíbúðir", "group_id": "21013119014299", "group_name": "Þjónustuborð - Gestaíbúðir / Guest apartments"}, {"type": "email", "source": "throunarsvid@hi.is", "meta_tag": "meta_throunarsvid", "meta_title": "[CREATE][META][THSV] – Classify þróunarsvið", "route_title": "[CREATE][ROUTE][THSV] – Route to þróunarsvið", "group_id": "37516954626459", "group_name": "Þróunarsvið"}, {"type": "form", "source": "THSV Zendesk kerfisaðstoð", "form_id": "32819065220379", "meta_tag": "meta_thsv_zendeskbeidni", "meta_title": "[CREATE][META][THSV] – Classify zendesk beiðnir", "route_title": "[CREATE][ROUTE][THSV] – Úthluta til Zendesk sýslara", "group_id": "28847764858011", "group_name": "Zendesk sýslarar"}, {"type": "email", "source": "hi@hi.is", "meta_tag": "meta_global_email_hi", "meta_title": "[CREATE][META][GLOBAL] – Tag email hi", "route_title": "", "group_id": "", "group_name": "(engin beint)"}, {"type": "form", "source": " Research Sabbatical Application ", "form_id": "36737078573723", "meta_tag": "meta_global_rannsoknamisseri", "meta_title": "[CREATE][META][GLOBAL] – Classify  rannsóknamisserisumsókn", "route_title": "[CREATE][ROUTE][GLOBAL] – Úthluta til Umsýsla rannsóknamissera", "group_id": "37290612921627", "group_name": "Umsýsla rannsóknamissera"}, {"type": "form", "source": "Brautskráningarskíteini", "form_id": "37966978061467", "meta_tag": "", "meta_title": "[CREATE][META][GLOBAL] – Classify  Brautskráningarskírteini", "route_title": "", "group_id": "", "group_name": "(engin beint)"}];
+
+const SECTION_COLORS = {
+  FJSV:'#2563eb',UTS:'#0891b2',IREI:'#0891b2',
+  MAN:'#7c3aed',KEN:'#059669',VNS:'#d97706',
+  THSV:'#dc2626',HVS:'#db2777',VON:'#65a30d',
+  FTS:'#ea580c',HUG:'#0d9488',
+  MSS:'#7e22ce',MVS:'#0e7490',
+  RAUNVIS:'#0f766e',FVS:'#0284c7',ASV:'#6366f1',
+  GLOBAL:'#64748b','Annað':'#94a3b8'
+};
+
+function getSectionFromGroup(gname) {
+  const prefixes=['FJSV','IREI','FTS','HVS','VON','MAN','MSS','MVS','VNS','KEN','HUG','THSV','UTS','RAUNVIS','FVS','ASV','GLOBAL'];
+  for(const p of prefixes){if(gname.toUpperCase().startsWith(p))return p;}
+  if(gname.includes('Þjónustuborð')||gname.includes('Tölvuþjónusta')||gname.includes('Zendesk')||gname.includes('Þróunarsvið')||gname.includes('Rannsókna'))return 'GLOBAL';
+  return 'Annað';
 }
-function gcol(n){
-  const m={'g-fjsv':'#2563eb','g-uts':'#0891b2','g-man':'#7c3aed','g-ken':'#059669','g-vns':'#d97706','g-thsv':'#dc2626','g-hvs':'#db2777','g-von':'#65a30d','g-fts':'#ea580c','g-hug':'#0d9488','g-mss':'#7e22ce','g-other':'#64748b'};
-  return m[gcls(n)]||'#64748b';
+function getColor(gname){return SECTION_COLORS[getSectionFromGroup(gname)]||'#94a3b8';}
+
+const emailSet=new Map(),formSet=new Map(),groupSet=new Map();
+for(const f of FLOWS){
+  if(f.type==='email'){if(!emailSet.has(f.source))emailSet.set(f.source,[]);emailSet.get(f.source).push(f);}
+  else{const k=f.source.trim();if(!formSet.has(k))formSet.set(k,[]);formSet.get(k).push(f);}
+  if(!groupSet.has(f.group_name))groupSet.set(f.group_name,{gid:f.group_id,flows:[]});
+  groupSet.get(f.group_name).flows.push(f);
 }
-const secL={'0':'1. Þjónustuborð','1':'FJSV – Fjármálasvið','2':'FTS – Fasteignaþjónusta','3':'HUG – Hugvísindasvið','4':'HVS – Heilbrigðisvísindasvið','5':'KEN – Kennsla','6':'MAN – Mannauðssvið','7':'MSS / MVS','8':'Raunvísindasvið','9':'UTS – Upplýsingatæknisvið','A':'VNS – Vísinda- og Nýsköpunarsvið','B':'VoN – Verkfræðisvið og Náttúruvísindasvið','C':'Zendesk kerfi','D':'Þjónustuborð (sérhópar)','E':'Þróunarsvið'};
-function sk(n){
-  if(n.startsWith('1.'))return '0';if(n.startsWith('FJSV'))return '1';if(n.startsWith('FTS'))return '2';
-  if(n.startsWith('HUG'))return '3';if(n.startsWith('HVS'))return '4';if(n.startsWith('KEN'))return '5';
-  if(n.startsWith('MAN'))return '6';if(n.startsWith('MSS')||n.startsWith('MVS'))return '7';
-  if(n.startsWith('Raunvís'))return '8';if(n.startsWith('UTS')||n.includes('IREI'))return '9';
-  if(n.startsWith('VNS'))return 'A';if(n.startsWith('VoN'))return 'B';
-  if(n.includes('Zendesk'))return 'C';if(n.startsWith('Þjón'))return 'D';if(n.startsWith('Þró'))return 'E';
-  return 'Z';
+const sections=new Map();
+for(const [gname,gdata] of groupSet){const sec=getSectionFromGroup(gname);if(!sections.has(sec))sections.set(sec,[]);sections.get(sec).push({name:gname,...gdata});}
+
+function renderLeft(){
+  const ec=document.getElementById('emails-container'),fc=document.getElementById('forms-container');
+  ec.innerHTML='';fc.innerHTML='';
+  document.getElementById('email-count').textContent=emailSet.size;
+  document.getElementById('form-count').textContent=formSet.size;
+  for(const email of[...emailSet.keys()].sort()){
+    const targets=[...new Set(emailSet.get(email).map(f=>f.group_name))];
+    const div=document.createElement('div');div.className='source-item source-email';div.dataset.id=email;div.dataset.type='email';
+    div.innerHTML=`<span class="source-icon">📧</span><div class="source-text"><div class="source-addr">${email}</div><div class="source-meta">${targets.map(t=>t.replace(/^\d+\.\s*/,'')).join(', ')}</div></div>`;
+    div.onclick=()=>toggleSelect('email',email);ec.appendChild(div);
+  }
+  for(const fname of[...formSet.keys()].sort()){
+    const targets=[...new Set(formSet.get(fname).map(f=>f.group_name))];
+    const div=document.createElement('div');div.className='source-item source-form';div.dataset.id=fname;div.dataset.type='form';
+    div.innerHTML=`<span class="source-icon">📋</span><div class="source-text"><div class="source-addr">${fname.trim()}</div><div class="source-meta">${targets.map(t=>t.replace(/^\d+\.\s*/,'')).join(', ')}</div></div>`;
+    div.onclick=()=>toggleSelect('form',fname);fc.appendChild(div);
+  }
 }
-const ec=document.getElementById('email-col'),gc=document.getElementById('group-col'),svgEl=document.getElementById('connections-svg');
-const eN={},gN={};
-emailOrder.forEach(e=>{const d=document.createElement('div');d.className='email-node';d.textContent=e;d.dataset.email=e;ec.appendChild(d);eN[e]=d;});
-let lsk=null;
-groupOrder.forEach(g=>{
-  const s=sk(g);
-  if(s!==lsk){const h=document.createElement('div');h.className='group-section-header';h.textContent=secL[s]||s;gc.appendChild(h);lsk=s;}
-  const d=document.createElement('div');d.className='group-node '+gcls(g);d.textContent=g;d.dataset.group=g;gc.appendChild(d);gN[g]=d;
-});
-document.getElementById('se').textContent=emailOrder.length;
-document.getElementById('sg').textContent=groupOrder.length;
-document.getElementById('sc').textContent=connections.length;
-const pD=[],pM={};
-function midY(el){const r=el.getBoundingClientRect(),cr=document.getElementById('svg-canvas').getBoundingClientRect();return r.top+r.height/2-cr.top;}
-function getX(el,s){const r=el.getBoundingClientRect(),cr=document.getElementById('svg-canvas').getBoundingClientRect();return s==='right'?r.right-cr.left:r.left-cr.left;}
-function draw(){
-  svgEl.innerHTML='';
-  const cv=document.getElementById('svg-canvas');
-  svgEl.setAttribute('width',cv.offsetWidth);svgEl.setAttribute('height',Math.max(cv.offsetHeight,document.body.scrollHeight));
-  pD.length=0;Object.keys(pM).forEach(k=>delete pM[k]);
-  connections.forEach(c=>{
-    const en=eN[c.email],gn=gN[c.group];if(!en||!gn)return;
-    const sx=getX(en,'right'),sy=midY(en),ex=getX(gn,'left'),ey=midY(gn);
-    const cx1=sx+(ex-sx)*.45,cx2=ex-(ex-sx)*.45;
-    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d',`M ${sx} ${sy} C ${cx1} ${sy}, ${cx2} ${ey}, ${ex} ${ey}`);
-    p.setAttribute('class','conn');p.setAttribute('stroke',gcol(c.group));svgEl.appendChild(p);
-    const pd={path:p,...c};pD.push(pd);
-    if(!pM[c.email])pM[c.email]=[];if(!pM[c.group])pM[c.group]=[];
-    pM[c.email].push(pd);pM[c.group].push(pd);
-  });
+
+function renderRight(){
+  const gc=document.getElementById('groups-container');gc.innerHTML='';
+  const secOrder=['FJSV','FTS','FVS','HUG','HVS','IREI','KEN','MAN','MSS','MVS','RAUNVIS','THSV','UTS','VNS','VON','ASV','GLOBAL','Annað'];
+  for(const sec of secOrder){
+    if(!sections.has(sec))continue;
+    const groups=sections.get(sec).sort((a,b)=>a.name.localeCompare(b.name,'is'));
+    const color=SECTION_COLORS[sec]||'#94a3b8';
+    const secDiv=document.createElement('div');secDiv.className='group-section';
+    const secHead=document.createElement('div');secHead.className='group-section-header';
+    secHead.style.color=color;secHead.style.borderBottomColor=color+'40';secHead.textContent=sec;secDiv.appendChild(secHead);
+    for(const g of groups){
+      const srcCount=[...new Set(g.flows.map(f=>f.source))].length;
+      const div=document.createElement('div');div.className='group-item';div.dataset.id=g.name;div.dataset.type='group';
+      div.innerHTML=`<div class="group-dot" style="background:${color}"></div><span class="group-name">${g.name.replace(/^\d+\.\s*/,'')}</span><span class="group-badge" style="background:${color}">${srcCount}</span>`;
+      div.onclick=()=>toggleSelect('group',g.name);secDiv.appendChild(div);
+    }
+    gc.appendChild(secDiv);
+  }
 }
-let sel=null;
-function applyHL(type,key){
-  const act=pM[key]||[];
-  const ag=new Set(act.map(p=>p.group)),ae=new Set(act.map(p=>p.email));
-  pD.forEach(pd=>{const on=type==='email'?pd.email===key:pd.group===key;pd.path.classList.toggle('active',on);pd.path.classList.toggle('dimmed',!on);});
-  Object.entries(eN).forEach(([e,n])=>{n.classList.toggle('selected',e===key);n.classList.toggle('dimmed',type==='group'?!ae.has(e):e!==key);});
-  Object.entries(gN).forEach(([g,n])=>{n.classList.toggle('selected',g===key);n.classList.toggle('dimmed',type==='email'?!ag.has(g):g!==key);});
-  const conns=connections.filter(c=>type==='email'?c.email===key:c.group===key);
-  const st=new Set();const list=document.getElementById('triggers-list');list.innerHTML='';
-  conns.forEach(c=>{
-    [[c.meta_title,c.meta_tag,'meta','Setur tag á málið'],[c.route_title,'','route','Úthlutar á hóp']].forEach(([title,tag,layer,desc])=>{
-      if(!title||st.has(title))return;st.add(title);
-      const b=document.createElement('div');b.className=`trigger-badge ${layer}`;
-      b.innerHTML=`<div class="tb-layer ${layer}">${layer.toUpperCase()}</div><div class="tb-title">${title}</div>${tag?`<div class="tb-tag">${tag}</div>`:''}<div class="tb-desc">${desc}</div>`;
-      list.appendChild(b);
-    });
-  });
-  document.getElementById('panel-title').textContent=`Triggerar (${st.size})`;
-  document.getElementById('panel-flow').textContent=type==='email'?`${key}  →  ${[...new Set(conns.map(c=>c.group))].join(', ')}`:`${[...new Set(conns.map(c=>c.email))].join(', ')}  →  ${key}`;
+
+let selected=null;
+function toggleSelect(type,id){if(selected&&selected.type===type&&selected.id===id){clearSelection();return;}selected={type,id};applySelection();}
+function clearSelection(){
+  selected=null;applySelection();
+  document.getElementById('clear-btn').classList.remove('visible');
+  document.getElementById('trigger-panel').classList.remove('visible');
+  document.getElementById('stats-label').textContent='';
+}
+function applySelection(){
+  let relevant=[];
+  if(selected){
+    if(selected.type==='email')relevant=emailSet.get(selected.id)||[];
+    else if(selected.type==='form')relevant=formSet.get(selected.id.trim())||[];
+    else if(selected.type==='group')relevant=groupSet.get(selected.id)?.flows||[];
+  }
+  const relSrc=new Set(relevant.map(f=>f.source.trim()));
+  const relGrp=new Set(relevant.map(f=>f.group_name));
+  for(const el of document.querySelectorAll('.source-item')){
+    el.classList.remove('selected','dimmed');if(!selected)continue;
+    relSrc.has(el.dataset.id.trim())?el.classList.add('selected'):el.classList.add('dimmed');
+  }
+  for(const el of document.querySelectorAll('.group-item')){
+    el.classList.remove('selected','dimmed');if(!selected)continue;
+    relGrp.has(el.dataset.id)?el.classList.add('selected'):el.classList.add('dimmed');
+  }
+  if(selected){
+    document.getElementById('clear-btn').classList.add('visible');
+    document.getElementById('stats-label').textContent=relevant.length+' tengingar fundnar';
+    showTriggerPanel(relevant);
+  }
+  drawLines(relevant);
+}
+
+function drawLines(relevant){
+  const svg=document.getElementById('svg-canvas'),midCol=document.getElementById('col-mid');
+  svg.innerHTML='';if(!relevant||!relevant.length)return;
+  const midRect=midCol.getBoundingClientRect();
+  const pairs=new Map();
+  for(const f of relevant){const key=f.source.trim()+'|||'+f.group_name;if(!pairs.has(key))pairs.set(key,f);}
+  for(const[,f]of pairs){
+    const srcEl=document.querySelector(`.source-item[data-id="${CSS.escape(f.source)}"]`)||document.querySelector(`.source-item[data-id="${CSS.escape(f.source.trim())}"]`);
+    const grpEl=document.querySelector(`.group-item[data-id="${CSS.escape(f.group_name)}"]`);
+    if(!srcEl||!grpEl)continue;
+    const srcR=srcEl.getBoundingClientRect(),grpR=grpEl.getBoundingClientRect();
+    const y1=srcR.top-midRect.top+srcR.height/2,y2=grpR.top-midRect.top+grpR.height/2;
+    if(y1<-50||y1>midRect.height+50||y2<-50||y2>midRect.height+50)continue;
+    const color=getColor(f.group_name),mx1=midRect.width*.35,mx2=midRect.width*.65;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M0,${y1} C${mx1},${y1} ${mx2},${y2} ${midRect.width},${y2}`);
+    path.setAttribute('stroke',color);path.setAttribute('stroke-width','1.5');path.setAttribute('fill','none');path.setAttribute('opacity','0.65');
+    svg.appendChild(path);
+    if(f.meta_tag){
+      const tag=document.createElementNS('http://www.w3.org/2000/svg','text');
+      tag.setAttribute('x',midRect.width/2);tag.setAttribute('y',(y1+y2)/2);
+      tag.setAttribute('text-anchor','middle');tag.setAttribute('dominant-baseline','middle');
+      tag.setAttribute('font-family','JetBrains Mono,monospace');tag.setAttribute('font-size','9');
+      tag.setAttribute('fill',color);tag.setAttribute('opacity','0.8');tag.textContent=f.meta_tag;
+      svg.appendChild(tag);
+    }
+  }
+}
+
+function showTriggerPanel(flows){
+  const cards=document.getElementById('trigger-cards');cards.innerHTML='';
+  const seen=new Set();
+  for(const f of flows){
+    const key=f.meta_title+'||'+f.route_title;if(seen.has(key))continue;seen.add(key);
+    const color=getColor(f.group_name);
+    const card=document.createElement('div');card.className='trigger-card';
+    card.innerHTML=`<div class="trigger-card-label">META Trigger</div><div class="trigger-card-title">${f.meta_title||'—'}</div>${f.meta_tag?`<span class="trigger-card-tag">${f.meta_tag}</span>`:''}`
+      +`${f.route_title?`<div style="margin-top:8px;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;"><div class="trigger-card-label">ROUTE Trigger</div><div class="trigger-card-title">${f.route_title}</div><div class="trigger-card-group" style="color:${color}">→ ${f.group_name}</div></div>`:''}`;
+    cards.appendChild(card);
+  }
   document.getElementById('trigger-panel').classList.add('visible');
 }
-function clearSel(){
-  sel=null;pD.forEach(pd=>pd.path.classList.remove('active','dimmed'));
-  Object.values(eN).forEach(n=>n.classList.remove('selected','dimmed'));
-  Object.values(gN).forEach(n=>n.classList.remove('selected','dimmed'));
-  document.getElementById('trigger-panel').classList.remove('visible');
-}
-Object.entries(eN).forEach(([e,n])=>n.addEventListener('click',ev=>{ev.stopPropagation();sel&&sel.type==='email'&&sel.key===e?clearSel():(sel={type:'email',key:e},applyHL('email',e));}));
-Object.entries(gN).forEach(([g,n])=>n.addEventListener('click',ev=>{ev.stopPropagation();sel&&sel.type==='group'&&sel.key===g?clearSel():(sel={type:'group',key:g},applyHL('group',g));}));
-document.addEventListener('click',e=>{if(!e.target.closest('.email-node')&&!e.target.closest('.group-node')&&!e.target.closest('.trigger-panel'))clearSel();});
-draw();window.addEventListener('resize',draw);document.fonts.ready.then(draw);setTimeout(draw,400);
+
+renderLeft();renderRight();
+document.getElementById('col-left').addEventListener('scroll',()=>{if(selected)applySelection();});
+document.getElementById('col-right').addEventListener('scroll',()=>{if(selected)applySelection();});
+window.addEventListener('resize',()=>{if(selected)applySelection();});
 </script>
 </body>
 </html>
