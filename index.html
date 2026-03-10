@@ -84,7 +84,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
     <h1>Háskóli Íslands — Zendesk Flæðiskema</h1>
     <p>Hvernig beiðnir berast til þjónustuhópa í gegnum netföng og innsláttarform</p>
   </div>
-  <div class="timestamp">all_triggers: 2026-03-10 · Skjal búið til: 2026-03-10 07:00 UTC</div>
+  <div class="timestamp">all_triggers: 2026-03-10 · Skjal búið til: 2026-03-10 07:49 UTC</div>
 </header>
 <div class="toolbar">
   <span class="toolbar-label">Smelltu á netfang, form eða hóp til að sjá tengingar</span>
@@ -214,25 +214,39 @@ function applySelection(){
   drawLines(relevant);
 }
 
-function drawLines(relevant){
+function drawLines(activeFlows){
   const svg=document.getElementById('svg-canvas'),midCol=document.getElementById('col-mid');
-  svg.innerHTML='';if(!relevant||!relevant.length)return;
+  svg.innerHTML='';
   const midRect=midCol.getBoundingClientRect();
-  const pairs=new Map();
-  for(const f of relevant){const key=f.source.trim()+'|||'+f.group_name;if(!pairs.has(key))pairs.set(key,f);}
-  for(const[,f]of pairs){
+  const hasSelection=!!selected;
+  // Búa til einstakt par-sett fyrir virk flæði
+  const activePairs=new Set();
+  if(hasSelection){
+    for(const f of activeFlows)activePairs.add(f.source.trim()+'|||'+f.group_name);
+  }
+  // Teikna ALLAR línur — virkar fá hærri opacity
+  const allPairs=new Map();
+  for(const f of FLOWS){
+    const key=f.source.trim()+'|||'+f.group_name;
+    if(!allPairs.has(key))allPairs.set(key,f);
+  }
+  for(const[key,f]of allPairs){
     const srcEl=document.querySelector(`.source-item[data-id="${CSS.escape(f.source)}"]`)||document.querySelector(`.source-item[data-id="${CSS.escape(f.source.trim())}"]`);
     const grpEl=document.querySelector(`.group-item[data-id="${CSS.escape(f.group_name)}"]`);
     if(!srcEl||!grpEl)continue;
     const srcR=srcEl.getBoundingClientRect(),grpR=grpEl.getBoundingClientRect();
     const y1=srcR.top-midRect.top+srcR.height/2,y2=grpR.top-midRect.top+grpR.height/2;
-    if(y1<-50||y1>midRect.height+50||y2<-50||y2>midRect.height+50)continue;
+    if(y1<-100||y1>midRect.height+100||y2<-100||y2>midRect.height+100)continue;
+    const isActive=!hasSelection||activePairs.has(key);
     const color=getColor(f.group_name),mx1=midRect.width*.35,mx2=midRect.width*.65;
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
     path.setAttribute('d',`M0,${y1} C${mx1},${y1} ${mx2},${y2} ${midRect.width},${y2}`);
-    path.setAttribute('stroke',color);path.setAttribute('stroke-width','1.5');path.setAttribute('fill','none');path.setAttribute('opacity','0.65');
+    path.setAttribute('stroke',color);
+    path.setAttribute('stroke-width',isActive?'1.8':'1');
+    path.setAttribute('fill','none');
+    path.setAttribute('opacity',hasSelection?(isActive?'0.7':'0.04'):'0.1');
     svg.appendChild(path);
-    if(f.meta_tag){
+    if(isActive&&f.meta_tag){
       const tag=document.createElementNS('http://www.w3.org/2000/svg','text');
       tag.setAttribute('x',midRect.width/2);tag.setAttribute('y',(y1+y2)/2);
       tag.setAttribute('text-anchor','middle');tag.setAttribute('dominant-baseline','middle');
@@ -258,9 +272,10 @@ function showTriggerPanel(flows){
 }
 
 renderLeft();renderRight();
-document.getElementById('col-left').addEventListener('scroll',()=>{if(selected)applySelection();});
-document.getElementById('col-right').addEventListener('scroll',()=>{if(selected)applySelection();});
-window.addEventListener('resize',()=>{if(selected)applySelection();});
+setTimeout(()=>drawLines([]),200);
+document.getElementById('col-left').addEventListener('scroll',()=>{applySelection();});
+document.getElementById('col-right').addEventListener('scroll',()=>{applySelection();});
+window.addEventListener('resize',()=>{applySelection();});
 </script>
 </body>
 </html>
