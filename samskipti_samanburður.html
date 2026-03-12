@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<title>Samskipti – Samanburður</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f0f2f5;
+  --panel:#ffffff;
+  --border:#d0d7e3;
+  --red:#c0392b;
+  --green:#1a7a3f;
+  --blue:#1a5fa8;
+  --orange:#b35c00;
+  --purple:#6b3fa0;
+  --grey:#5a6a80;
+  --white:#ffffff;
+  --text:#1a2035;
+  --dim:#6b7a90;
+  --light:#e8ecf2;
+}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;min-height:100vh;padding:28px 16px 48px;}
+h1{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--grey);text-align:center;margin-bottom:6px;}
+.headline{text-align:center;font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.02em;}
+.sub{text-align:center;font-size:11px;color:var(--dim);margin-bottom:28px;}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1280px;margin:0 auto;}
+@media(max-width:860px){.panels{grid-template-columns:1fr;}}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07);}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:12px 12px 0 0;}
+.panel-bad::before{background:var(--red);}
+.panel-good::before{background:var(--green);}
+.panel-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;font-weight:600;}
+.panel-bad .panel-title{color:var(--red);}
+.panel-good .panel-title{color:var(--green);}
+.panel-desc{font-size:11px;color:var(--dim);margin-bottom:16px;line-height:1.5;}
+svg{width:100%;display:block;}
+.msg-list{margin-top:16px;border-top:1px solid var(--border);padding-top:14px;display:flex;flex-direction:column;gap:6px;}
+.msg-item{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.4;}
+.msg-num{font-family:'IBM Plex Mono',monospace;font-size:10px;min-width:18px;color:var(--dim);padding-top:1px;}
+.msg-badge{font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;white-space:nowrap;margin-top:1px;}
+.badge-public  {background:#dbeafe;color:#1a5fa8;}
+.badge-internal{background:#ede9fe;color:#6b3fa0;}
+.badge-side    {background:#dcfce7;color:#1a7a3f;}
+.badge-email   {background:#fef3c7;color:#92400e;}
+.badge-problem {background:#fee2e2;color:#c0392b;}
+.badge-notify  {background:#f1f5f9;color:#5a6a80;}
+.msg-text{color:var(--grey);}
+.msg-text strong{color:var(--text);font-weight:600;}
+.note-box{margin-top:16px;background:#fff8f0;border:1px solid #f0d0a0;border-radius:6px;padding:10px 12px;font-size:10px;color:#7a5000;line-height:1.6;}
+.note-box strong{color:#5a3800;}
+</style>
+</head>
+<body>
+
+<h1>Þjónustukerfi HÍ · Vinnulag</h1>
+<div class="headline">Samskipti – Samanburður</div>
+<div class="sub">Nöfn þátttakenda eru gervinöfn úr kvikmyndinni Sódóma Reykjavík (1992)</div>
+
+<div class="panels">
+
+<!-- BAD -->
+<div class="panel panel-bad">
+  <div class="panel-title">⚠ Eins og var — vandræðalegt ferli</div>
+  <div class="panel-desc">Samskipti fara utan kerfis. Ytri aðili á CC. Þjónustufulltrúar svara beint úr tölvupósti.</div>
+
+  <svg viewBox="0 0 500 390" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="b-red" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#c0392b"/></marker>
+      <marker id="b-ora" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#b35c00"/></marker>
+      <marker id="b-grn" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#1a7a3f"/></marker>
+      <marker id="b-pur" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#6b3fa0"/></marker>
+      <marker id="b-blu" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#1a5fa8"/></marker>
+    </defs>
+
+    <!-- Axel (beiðandi): 85,75 -->
+    <circle cx="85" cy="75" r="38" fill="#dbeafe" stroke="#1a5fa8" stroke-width="2"/>
+    <text x="85" y="68" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Axel</text>
+    <text x="85" y="81" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">beiðandi</text>
+    <text x="85" y="93" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">axel@hi.is</text>
+
+    <!-- Zendesk: 255,75 -->
+    <rect x="211" y="38" width="88" height="74" rx="8" fill="#f0f7f0" stroke="#1a7a3f" stroke-width="2"/>
+    <text x="255" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">Zendesk</text>
+    <text x="255" y="75" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#5a6a80">ferdabeidnir</text>
+    <text x="255" y="87" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">@hi.is</text>
+    <text x="255" y="102" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#5a6a80">+ kerfið</text>
+
+    <!-- Orri (ytri aðili): 420,75 -->
+    <circle cx="420" cy="75" r="38" fill="#fef3c7" stroke="#b35c00" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="420" y="68" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Orri</text>
+    <text x="420" y="81" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">ytri aðili</text>
+    <text x="420" y="93" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">orri@ytri.is</text>
+
+    <!-- Moli (agent): 85,225 -->
+    <circle cx="85" cy="225" r="38" fill="#dcfce7" stroke="#1a7a3f" stroke-width="2.5"/>
+    <text x="85" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Moli</text>
+    <text x="85" y="231" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">þjónustufulltrúi</text>
+    <text x="85" y="243" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">moli@hi.is</text>
+
+    <!-- Unnur (samþykktaraðili): 420,225 -->
+    <circle cx="420" cy="225" r="38" fill="#ede9fe" stroke="#6b3fa0" stroke-width="2" stroke-dasharray="5,3"/>
+    <text x="420" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Unnur</text>
+    <text x="420" y="231" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">samþykktaraðili</text>
+    <text x="420" y="243" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">unnur@hi.is</text>
+
+    <!-- Aggi Pó (farþegi/CC): 255,345 -->
+    <circle cx="255" cy="345" r="36" fill="#f0f4ff" stroke="#1a5fa8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="255" y="339" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Aggi Pó</text>
+    <text x="255" y="352" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">farþegi / CC</text>
+    <text x="255" y="364" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">aggi@hi.is</text>
+
+    <!-- 1: Axel→Zendesk (with Orri on CC) -->
+    <path d="M123,75 L211,75" stroke="#1a5fa8" stroke-width="2" fill="none" marker-end="url(#b-blu)"/>
+    <text x="167" y="67" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a5fa8" font-weight="600">1</text>
+
+    <!-- 2: Orri→Zendesk reply-all -->
+    <path d="M382,75 L299,75" stroke="#b35c00" stroke-width="2" fill="none" marker-end="url(#b-blu)"/>
+    <text x="340" y="67" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b35c00" font-weight="600">2</text>
+
+    <!-- 3: ZD→Moli routing -->
+    <path d="M228,108 L109,200" stroke="#1a7a3f" stroke-width="1.8" fill="none" marker-end="url(#b-grn)" stroke-dasharray="4,2"/>
+    <text x="158" y="162" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">3</text>
+
+    <!-- 4: Axel emails Orri directly (RED BAD) -->
+    <path d="M120,60 C200,8 340,8 382,57" stroke="#c0392b" stroke-width="2.5" fill="none" marker-end="url(#b-red)"/>
+    <text x="251" y="10" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#c0392b" font-weight="600">4 ⚠</text>
+    <text x="251" y="22" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#c0392b">utan Zendesk</text>
+
+    <!-- 5: Orri→ferdabeidnir+Unnur (internal) -->
+    <path d="M420,113 L420,187" stroke="#b35c00" stroke-width="2" fill="none" marker-end="url(#b-pur)"/>
+    <text x="432" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b35c00" font-weight="600">5</text>
+    <path d="M384,88 L299,80" stroke="#b35c00" stroke-width="1.2" fill="none" marker-end="url(#b-pur)" opacity="0.5"/>
+
+    <!-- 6: Unnur replies outside ZD (RED) -->
+    <path d="M386,212 C310,158 235,115 258,110" stroke="#c0392b" stroke-width="2.2" fill="none" marker-end="url(#b-pur)" stroke-dasharray="5,2"/>
+    <text x="308" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#c0392b" font-weight="600">6 ⚠</text>
+
+    <!-- 7: Moli→Axel public (correct) -->
+    <path d="M85,187 L85,113" stroke="#1a7a3f" stroke-width="2" fill="none" marker-end="url(#b-blu)"/>
+    <text x="97" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">7</text>
+
+    <!-- 8: Orri reply-all again (internal, opens) -->
+    <path d="M420,263 C455,320 400,370 291,356" stroke="#b35c00" stroke-width="2" fill="none" marker-end="url(#b-pur)" stroke-dasharray="5,2"/>
+    <text x="455" y="325" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b35c00" font-weight="600">8</text>
+
+    <!-- 9: Moli replies again, pending -->
+    <path d="M122,214 C188,172 222,122 237,110" stroke="#1a7a3f" stroke-width="1.8" fill="none" marker-end="url(#b-grn)"/>
+    <text x="152" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">9</text>
+  </svg>
+
+  <div class="msg-list">
+    <div class="msg-item"><span class="msg-num">1</span><span class="msg-badge badge-email">Tölvupóstur</span><span class="msg-text"><strong>Axel → Zendesk</strong> — Orri, Aggi Pó, Unnur á CC</span></div>
+    <div class="msg-item"><span class="msg-num">2</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Orri</strong> reply-all — verður public comment í Zendesk</span></div>
+    <div class="msg-item"><span class="msg-num">3</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Moli</strong> tekur ticket til sín</span></div>
+    <div class="msg-item"><span class="msg-num">4</span><span class="msg-badge badge-problem">⚠ Utan ZD</span><span class="msg-text"><strong>Axel</strong> svarar Orra beint úr tölvupósti — verður public comment</span></div>
+    <div class="msg-item"><span class="msg-num">5</span><span class="msg-badge badge-internal">Internal</span><span class="msg-text"><strong>Orri → ferdabeidnir + Unnur</strong> — verður internal (óþekkt sending)</span></div>
+    <div class="msg-item"><span class="msg-num">6</span><span class="msg-badge badge-problem">⚠ Utan ZD</span><span class="msg-text"><strong>Unnur</strong> svarar utan Zendesk — verður internal</span></div>
+    <div class="msg-item"><span class="msg-num">7</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Moli → Axel</strong> úr Zendesk — rétt</span></div>
+    <div class="msg-item"><span class="msg-num">8</span><span class="msg-badge badge-internal">Internal</span><span class="msg-text"><strong>Orri</strong> svarar öllum aftur — internal, opnar ticket úr Pending</span></div>
+    <div class="msg-item"><span class="msg-num">9</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Moli</strong> svarar aftur og setur Pending</span></div>
+  </div>
+</div>
+
+<!-- GOOD -->
+<div class="panel panel-good">
+  <div class="panel-title">✓ Rétt vinnulag</div>
+  <div class="panel-desc">Allt fer í gegnum Zendesk. Ytri aðili í Side Conversation. Engin samskipti utan kerfis.</div>
+
+  <svg viewBox="0 0 500 390" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <marker id="g-blu" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#1a5fa8"/></marker>
+      <marker id="g-grn" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#1a7a3f"/></marker>
+      <marker id="g-pur" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#6b3fa0"/></marker>
+      <marker id="g-ora" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#b35c00"/></marker>
+      <marker id="g-gry" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3z" fill="#5a6a80"/></marker>
+    </defs>
+
+    <!-- Axel (beiðandi): 85,75 -->
+    <circle cx="85" cy="75" r="38" fill="#dbeafe" stroke="#1a5fa8" stroke-width="2"/>
+    <text x="85" y="68" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Axel</text>
+    <text x="85" y="81" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">beiðandi</text>
+    <text x="85" y="93" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">axel@hi.is</text>
+
+    <!-- Zendesk: 255,75 -->
+    <rect x="211" y="38" width="88" height="74" rx="8" fill="#f0f7f0" stroke="#1a7a3f" stroke-width="2.5"/>
+    <text x="255" y="62" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">Zendesk</text>
+    <text x="255" y="75" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#5a6a80">ferdabeidnir</text>
+    <text x="255" y="87" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">@hi.is</text>
+    <text x="255" y="102" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#5a6a80">+ kerfið</text>
+
+    <!-- Moli (agent): 85,225 -->
+    <circle cx="85" cy="225" r="38" fill="#dcfce7" stroke="#1a7a3f" stroke-width="2.5"/>
+    <text x="85" y="218" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Moli</text>
+    <text x="85" y="231" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">þjónustufulltrúi</text>
+    <text x="85" y="243" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#1a7a3f">í Zendesk</text>
+
+    <!-- Unnur (samþykktaraðili): 420,150 -->
+    <circle cx="420" cy="150" r="38" fill="#ede9fe" stroke="#6b3fa0" stroke-width="2"/>
+    <text x="420" y="143" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Unnur</text>
+    <text x="420" y="156" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">samþykktaraðili</text>
+    <text x="420" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">CC á ticket</text>
+
+    <!-- Side Conversation box -->
+    <rect x="338" y="255" width="124" height="100" rx="10" fill="#fffbeb" stroke="#b35c00" stroke-width="1.5" stroke-dasharray="6,3"/>
+    <text x="400" y="249" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#b35c00">SIDE CONVERSATION</text>
+
+    <!-- Orri (ytri aðili): 400,305 -->
+    <circle cx="400" cy="305" r="36" fill="#fef3c7" stroke="#b35c00" stroke-width="2"/>
+    <text x="400" y="298" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Orri</text>
+    <text x="400" y="311" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">ytri aðili</text>
+    <text x="400" y="323" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">orri@ytri.is</text>
+
+    <!-- Aggi Pó (farþegi): 255,345 -->
+    <circle cx="255" cy="345" r="34" fill="#f0f4ff" stroke="#1a5fa8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="255" y="339" text-anchor="middle" font-family="IBM Plex Sans" font-size="11" fill="#1a2035" font-weight="700">Aggi Pó</text>
+    <text x="255" y="352" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#5a6a80">farþegi</text>
+    <text x="255" y="364" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#8a9ab0">aggi@hi.is</text>
+
+    <!-- 1: Axel→Zendesk -->
+    <path d="M123,75 L211,75" stroke="#1a5fa8" stroke-width="2" fill="none" marker-end="url(#g-blu)"/>
+    <text x="167" y="67" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a5fa8" font-weight="600">1</text>
+
+    <!-- 2: ZD routes to Moli -->
+    <path d="M226,108 L110,198" stroke="#1a7a3f" stroke-width="2" fill="none" marker-end="url(#g-grn)"/>
+    <text x="158" y="158" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">2</text>
+
+    <!-- 3: Moli→ZD→Unnur CC -->
+    <path d="M120,207 C200,162 325,150 382,150" stroke="#6b3fa0" stroke-width="1.8" fill="none" marker-end="url(#g-pur)" stroke-dasharray="5,2"/>
+    <text x="255" y="158" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#6b3fa0" font-weight="600">3</text>
+
+    <!-- 4: Unnur→ZD reply -->
+    <path d="M383,138 C330,110 295,96 299,92" stroke="#6b3fa0" stroke-width="1.8" fill="none" marker-end="url(#g-grn)"/>
+    <text x="338" y="108" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#6b3fa0" font-weight="600">4</text>
+
+    <!-- 5: Moli→Side Conv→Orri -->
+    <path d="M121,244 C215,272 315,286 364,298" stroke="#b35c00" stroke-width="2" fill="none" marker-end="url(#g-ora)"/>
+    <text x="228" y="285" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b35c00" font-weight="600">5</text>
+
+    <!-- 6: Orri→Side Conv→Moli -->
+    <path d="M364,315 C270,338 165,298 120,254" stroke="#b35c00" stroke-width="2" fill="none" marker-end="url(#g-grn)"/>
+    <text x="210" y="340" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#b35c00" font-weight="600">6</text>
+
+    <!-- 7: Moli→ZD→Axel -->
+    <path d="M85,187 L85,113" stroke="#1a7a3f" stroke-width="2" fill="none" marker-end="url(#g-blu)"/>
+    <text x="97" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1a7a3f" font-weight="600">7</text>
+
+    <!-- 8: Notify→Aggi Pó -->
+    <path d="M248,112 C235,195 240,268 250,311" stroke="#5a6a80" stroke-width="1.5" fill="none" marker-end="url(#g-gry)" stroke-dasharray="4,3"/>
+    <text x="224" y="225" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#5a6a80" font-weight="600">8</text>
+    <text x="218" y="237" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#5a6a80">notify</text>
+  </svg>
+
+  <div class="msg-list">
+    <div class="msg-item"><span class="msg-num">1</span><span class="msg-badge badge-email">Tölvupóstur</span><span class="msg-text"><strong>Axel → ferdabeidnir@hi.is</strong> — enginn ytri aðili á CC</span></div>
+    <div class="msg-item"><span class="msg-num">2</span><span class="msg-badge badge-public">Zendesk</span><span class="msg-text"><strong>Kerfið</strong> stofnar ticket og routing til Mola</span></div>
+    <div class="msg-item"><span class="msg-num">3</span><span class="msg-badge badge-internal">CC tilkynning</span><span class="msg-text"><strong>Moli</strong> biður Unnar um samþykki í gegnum Zendesk</span></div>
+    <div class="msg-item"><span class="msg-num">4</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Unnur</strong> staðfestir með reply á Zendesk-póst</span></div>
+    <div class="msg-item"><span class="msg-num">5</span><span class="msg-badge badge-side">Side Conv.</span><span class="msg-text"><strong>Moli</strong> stofnar Side Conversation við Orra úr Zendesk</span></div>
+    <div class="msg-item"><span class="msg-num">6</span><span class="msg-badge badge-side">Side Conv.</span><span class="msg-text"><strong>Orri</strong> svarar í Side Conversation — fer ekki á aðal-þráð</span></div>
+    <div class="msg-item"><span class="msg-num">7</span><span class="msg-badge badge-public">Public</span><span class="msg-text"><strong>Moli → Axel</strong> — lokasvars úr Zendesk, lokar máli</span></div>
+    <div class="msg-item"><span class="msg-num">8</span><span class="msg-badge badge-notify">NOTIFY trigger</span><span class="msg-text"><strong>Zendesk</strong> sendir lokatilkynningu til Agga Pós</span></div>
+  </div>
+</div>
+
+</div>
+
+<div class="note-box" style="max-width:1280px;margin:16px auto 0;">
+  <strong>Lykill að gervinöfnum:</strong> Axel = beiðandi · Moli = þjónustufulltrúi (agent) · Unnur = samþykktaraðili · Orri = ytri þjónustuaðili · Aggi Pó = farþegi/upplýstur aðili · Nöfn úr kvikmyndinni Sódóma Reykjavík (Óskar Jónasson, 1992)
+</div>
+
+</body>
+</html>
